@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  from: MyString
+  to: MyString
+  departure_date: MyText
+  arrival_date: MyText
+  capacity: 1
+  rate: 1
+  traveller: one
+
+two:
+  from: MyString
+  to: MyString
+  departure_date: MyText
+  arrival_date: MyText
+  capacity: 1
+  rate: 1
+  traveller: two

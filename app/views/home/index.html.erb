@@ -1,0 +1,25 @@
+<div class="container">
+
+    <h1>Welcome to Delivery App</h1>
+
+    <% if current_user_credential %>
+
+        <% if current_user_credential.user_type == nil %>
+            <h1>neither sender nor traveller</h1>
+            <%= link_to "Become Traveller", new_traveller_path, class: "btn btn-dark" %>
+            <%= link_to "Become Sender", new_traveller_path, class: "btn btn-outline-dark" %>
+
+
+        <%elsif current_user_credential.user_type == "Sender" %>
+            <h1>Sender</h1>
+
+        <% else %>
+            
+            <h1>Traveller</h1>
+
+        <%end%>
+
+    <% end %>
+
+
+</div>
