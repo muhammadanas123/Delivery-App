@@ -1,4 +1,89 @@
 <div class="container">
     <h1>journey#new</h1>
 
+    <%
+=begin%>
+ <%= render "errors" %> 
+<%
+=end%>
+    <div class="row">
+    <div class="col-12">
+        <%= form_with model: [@traveller, @journey ] do |f| %>
+
+
+        <div class="form-row">
+
+            <div class="form-group col-md-6" data-controller="from" data-action="map-loaded@window->from#initGoogle" >
+                <label for="from">From</label>
+                <input class="form-control" type="text" id="from" data-from-target="input" autocomplete="off">
+
+                <input type="hidden" name="journey[from]" data-from-target="city">
+            </div>
+
+            <div class="form-group col-md-6" data-controller="to" data-action="map-loaded@window->to#initGoogle" >
+                <label for="from">To</label>
+                <input class="form-control" type="text" id="to" data-to-target="input" autocomplete="off">
+
+                <input type="hidden" name="journey[to]" data-to-target="city">
+            </div>
+
+        </div>
+
+            <%
+=begin%>
+ <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <%= f.label :from %>
+                    <%= f.text_field :from, autocomplete: 'from', class: 'form-control' %>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <%= f.label :to %>
+                    <%= f.text_field :to, autocomplete: 'to', class: 'form-control' %>
+                </div>
+
+            </div> 
+<%
+=end%>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <%= f.label :departure_date %>
+                    <%= f.text_field :departure_date, autocomplete: 'departure_date', class: 'form-control' %>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <%= f.label :arrival_date %>
+                    <%= f.text_field :arrival_date, autocomplete: 'arrival_date', class: 'form-control' %>
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <%= f.label :capacity %>
+                    <%= f.number_field :capacity, autocomplete: 'capacity', class: 'form-control' %>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <%= f.label :rate %>
+                    <%= f.text_field :rate, autocomplete: 'rate', class: 'form-control' %>
+                </div>
+
+            </div>
+
+            <div class="actions">
+                <%= f.submit("Create Journey" , class: "btn btn-outline-success")%>
+            </div>
+        <% end %>
+
+    </div>
+    </div>
+
+
+
+
 </div>
