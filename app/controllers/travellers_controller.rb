@@ -1,5 +1,6 @@
 class TravellersController < ApplicationController
     before_action :already_traveller, only: [:new]
+    before_action :traveller_cannot_access_the_other_traveller_info, only: [:edit, :show, :update, :destroy]
 
     include TravellerHelper
 
@@ -25,6 +26,7 @@ class TravellersController < ApplicationController
 
     def show
         @traveller = Traveller.find(current_user_credential.user_id)
+        # byebug
     end
 
     def edit
@@ -64,6 +66,13 @@ class TravellersController < ApplicationController
             flash["notice"] = "you'r already a traveller"
             redirect_to root_path
 
+        end
+    end
+
+    def traveller_cannot_access_the_other_traveller_info
+        if  current_user_credential.user_id != params[:id].to_i
+            flash["notice"] = "you'r not authorised to access it."
+            redirect_to root_path
         end
     end
 

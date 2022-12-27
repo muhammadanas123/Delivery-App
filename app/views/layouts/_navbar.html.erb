@@ -12,9 +12,11 @@
                     <%= link_to "Profile", traveller_path(current_user_credential.user_id), class: "nav-link" %>
                 </li>
             <%end%>
-            <li class="nav-item">
-                <%= link_to "Journeys", traveller_journeys_path(current_user_credential.user_id), class: "nav-link" %>
-            </li>
+            <% if current_user_credential && current_user_credential.user_id %>
+                <li class="nav-item">
+                    <%= link_to "Journeys", traveller_journeys_path(current_user_credential.user_id), class: "nav-link" %>
+                </li>
+            <% end %>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Dropdown

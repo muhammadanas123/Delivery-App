@@ -8,9 +8,19 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "bootstrap"
+import "controllers"
 
 
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+window.initMap = () => {
+    const event = new Event("map-loaded", { "bubbles":true, "cancelable":false })
+    setTimeout(function() {
+        window.dispatchEvent(event)
+    }, 1000);
+}
+
+
