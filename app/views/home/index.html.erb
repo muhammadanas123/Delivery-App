@@ -7,7 +7,7 @@
         <% if current_user_credential.user_type == nil %>
             <h1>neither sender nor traveller</h1>
             <%= link_to "Become Traveller", new_traveller_path, class: "btn btn-dark" %>
-            <%= link_to "Become Sender", new_traveller_path, class: "btn btn-outline-dark" %>
+            <%= link_to "Become Sender", new_sender_path, class: "btn btn-outline-dark" %>
 
 
         <%elsif current_user_credential.user_type == "Sender" %>

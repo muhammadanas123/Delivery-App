@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :travellers do
     resources :journeys
   end
+
+  resources :senders
 end

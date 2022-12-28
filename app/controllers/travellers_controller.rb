@@ -2,7 +2,7 @@ class TravellersController < ApplicationController
     before_action :already_traveller, only: [:new]
     before_action :traveller_cannot_access_the_other_traveller_info, only: [:edit, :show, :update, :destroy]
 
-    include TravellerHelper
+    # include TravellerHelper
 
 
 
