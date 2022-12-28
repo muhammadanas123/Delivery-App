@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_26_135855) do
+ActiveRecord::Schema.define(version: 2022_12_28_143255) do
 
   create_table "journeys", force: :cascade do |t|
     t.string "from"
@@ -25,12 +25,25 @@ ActiveRecord::Schema.define(version: 2022_12_26_135855) do
     t.index ["traveller_id"], name: "index_journeys_on_traveller_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "traveller_id", null: false
+    t.integer "sender_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sender_id"], name: "index_orders_on_sender_id"
+    t.index ["traveller_id"], name: "index_orders_on_traveller_id"
+  end
+
   create_table "senders", force: :cascade do |t|
     t.string "firstname"
     t.string "lastname"
     t.integer "phone_no"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "landline"
+    t.string "city"
+    t.string "state"
+    t.string "country"
   end
 
   create_table "travellers", force: :cascade do |t|
@@ -61,4 +74,6 @@ ActiveRecord::Schema.define(version: 2022_12_26_135855) do
   end
 
   add_foreign_key "journeys", "travellers"
+  add_foreign_key "orders", "senders"
+  add_foreign_key "orders", "travellers"
 end

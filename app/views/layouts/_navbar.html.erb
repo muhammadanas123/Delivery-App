@@ -12,7 +12,12 @@
                     <%= link_to "Profile", traveller_path(current_user_credential.user_id), class: "nav-link" %>
                 </li>
             <%end%>
-            <% if current_user_credential && current_user_credential.user_id %>
+            <% if current_user_credential && current_user_credential.user_type=="Sender" %>
+                <li class="nav-item active">
+                    <%= link_to "Profile", sender_path(current_user_credential.user_id), class: "nav-link" %>
+                </li>
+            <%end%>
+            <% if current_user_credential && current_user_credential.user_type == "Traveller" %>
                 <li class="nav-item">
                     <%= link_to "Journeys", traveller_journeys_path(current_user_credential.user_id), class: "nav-link" %>
                 </li>
