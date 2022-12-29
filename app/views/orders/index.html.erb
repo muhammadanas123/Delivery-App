@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>order#index</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Sender</th>
+            <th scope="col">Receiver</th>
+            <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @orders.each do | order | %>
+                <tr>
+                    <th scope="row">1</th>
+                    <td><%=current_user_credential.user.firstname%></td>
+                    <td><%=order.receiver_name%></td>
+                    <td>
+                        <%
+=begin%>
+ <%= link_to "view", traveller_journey_path(@traveller,journey), class: "btn btn-outline-info btn-sm"%>
+                        <%= link_to "edit", edit_traveller_journey_path(@traveller,journey), class: "btn btn-outline-success btn-sm" %>
+                        <%= link_to "delete", traveller_journey_path(@traveller,journey), method: :delete, class: "btn btn-outline-danger btn-sm" %> 
+<%
+=end%>
+                    </td>
+                </tr>
+            <%end%>
+        </tbody>
+    </table>
+
+</div>

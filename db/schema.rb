@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_28_143255) do
+ActiveRecord::Schema.define(version: 2022_12_29_122845) do
 
   create_table "journeys", force: :cascade do |t|
     t.string "from"
@@ -30,6 +30,9 @@ ActiveRecord::Schema.define(version: 2022_12_28_143255) do
     t.integer "sender_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "receiver_name"
+    t.integer "receiver_phone"
+    t.text "receiver_address"
     t.index ["sender_id"], name: "index_orders_on_sender_id"
     t.index ["traveller_id"], name: "index_orders_on_traveller_id"
   end

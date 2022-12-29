@@ -57,11 +57,22 @@ class SendersController < ApplicationController
     def index
     end
 
+    def traveller_list
+        # byebug
+        if params[:from].present? && params[:to].present? && params[:capacity].present?
+            @journeys = Journey.search(params[:from], params[:to], params[:capacity])
+        else
+            flash.now["notice"] = "you'r missing some fields"
+            render "traveller_list"
+        end
+
+    end
+
 
 
     private
     def sender_params
-        params.require(:sender).permit(:firstname, :lastname, :phone_no, :landline, :city, :country, :state)
+        params.require(:sender).permit(:firstname, :lastname, :phone_no, :landline, :city, :country, :state, :from, :to, :capacity)
 
     end
 
