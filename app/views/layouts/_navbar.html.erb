@@ -16,23 +16,31 @@
                 <li class="nav-item active">
                     <%= link_to "Profile", sender_path(current_user_credential.user_id), class: "nav-link" %>
                 </li>
+                <li class="nav-item">
+                    <%= link_to "Travellers List", traveller_list_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "Orders", sender_orders_path(current_user_credential.user_id), class: "nav-link" %>
+                </li>
             <%end%>
             <% if current_user_credential && current_user_credential.user_type == "Traveller" %>
                 <li class="nav-item">
                     <%= link_to "Journeys", traveller_journeys_path(current_user_credential.user_id), class: "nav-link" %>
                 </li>
             <% end %>
-            <li class="nav-item dropdown">
+
+            <%
+=begin%>
+ <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
+                Orders
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <%= link_to "Orders list", sender_orders_path(current_user_credential.user_id), class: "dropdown-item" %>
                 </div>
-            </li>
+            </li> 
+<%
+=end%>
             <li class="nav-item">
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li>

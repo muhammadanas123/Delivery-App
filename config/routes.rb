@@ -9,5 +9,11 @@ Rails.application.routes.draw do
     resources :journeys
   end
 
-  resources :senders
+  resources :senders do
+    resources :orders, except: :new
+    get '/:traveller_id/orders/new', to: 'orders#new', as: "new_order" 
+  end
+  get 'traveller_list', to: 'senders#traveller_list'
+
+
 end
