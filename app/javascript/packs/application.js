@@ -10,6 +10,8 @@ import "channels"
 import "bootstrap"
 import "controllers"
 
+require("jquery")
+require("@nathanvda/cocoon")
 
 
 Rails.start()
