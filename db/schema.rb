@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_30_065858) do
+ActiveRecord::Schema.define(version: 2023_01_02_143825) do
 
   create_table "items", force: :cascade do |t|
     t.string "itemname"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2022_12_30_065858) do
     t.integer "traveller_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status"
     t.index ["traveller_id"], name: "index_journeys_on_traveller_id"
   end
 

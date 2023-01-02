@@ -2,6 +2,7 @@ class SendersController < ApplicationController
     before_action :already_sender, only: [:new]
     before_action :sender_cannot_access_the_other_sender_info, only: [:edit, :show, :update, :destroy]
     before_action :restrict_index_action, only: [:index]
+    before_action :restrict_traveller_to_access_sender
 
     # include TravellerHelper
 
@@ -55,6 +56,7 @@ class SendersController < ApplicationController
     end
 
     def index
+        byebug
     end
 
     def traveller_list
@@ -90,6 +92,16 @@ class SendersController < ApplicationController
             redirect_to root_path
         end
     end
+
+    def restrict_traveller_to_access_sender
+        if current_user_credential.user_type == "Traveller"
+            flash["notice"] = "you'r not authorised to access it."
+            redirect_to root_path
+        end
+    end
+
+
+
 
     def restrict_index_action
         if params[:action] == "index"

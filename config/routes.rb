@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :travellers do
     resources :journeys
+    get 'orders', to: 'travellers#orders'
   end
 
   resources :senders do

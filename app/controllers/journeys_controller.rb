@@ -2,6 +2,7 @@ class JourneysController < ApplicationController
 
     before_action :traveller_cannot_access_the_other_traveller_info, only: [:edit, :show, :update, :destroy]
     before_action :find_and_set_journey, only: [:show, :edit, :update, :destroy]
+    before_action :restrict_sender_to_access_journey
 
 
     def new
@@ -86,6 +87,13 @@ class JourneysController < ApplicationController
 
     def traveller_cannot_access_the_other_traveller_info
         if  current_user_credential.user_id != params[:traveller_id].to_i
+            flash["notice"] = "you'r not authorised to access it."
+            redirect_to root_path
+        end
+    end
+
+    def restrict_sender_to_access_journey
+        if current_user_credential.user_type == "Sender"
             flash["notice"] = "you'r not authorised to access it."
             redirect_to root_path
         end

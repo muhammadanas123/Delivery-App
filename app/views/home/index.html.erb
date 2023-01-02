@@ -16,6 +16,8 @@
         <% else %>
             
             <h1>Traveller</h1>
+            <%= link_to "New Journey", new_traveller_journey_path(current_user_credential.user_id), class: "btn btn-outline-dark" %>
+
 
         <%end%>
 

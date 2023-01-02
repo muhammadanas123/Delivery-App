@@ -1,12 +1,13 @@
 <div class="container">
-    <h1>traveveller_list</h1>
+    <h1>Travellers</h1>
     
-     <%= form_tag(traveller_list_path, method: :get)  do |f| %>
-        <%= text_field_tag :from, params[:from] %> 
-        <%= text_field_tag :to, params[:to] %> 
-        <%= text_field_tag :capacity, params[:capacity] %> 
+     <%= form_tag(traveller_list_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+        <%= text_field_tag :from, params[:from], class: "form-control mr-sm-2" %> 
+        <%= text_field_tag :to, params[:to], class: "form-control mr-sm-2" %> 
+        <%= text_field_tag :capacity, params[:capacity], class: "form-control mr-sm-2" %> 
         <%= submit_tag('Search', name: :nill, class: "btn btn-success my-2 my-sm-0") %>
     <%end%>
+    </br>
 
 
 

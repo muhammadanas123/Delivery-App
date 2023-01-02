@@ -11,6 +11,23 @@
                 <li class="nav-item active">
                     <%= link_to "Profile", traveller_path(current_user_credential.user_id), class: "nav-link" %>
                 </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Journey
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%
+=begin%>
+ <%= link_to "Current Journey", traveller_journey_path(current_user_credential.user_id,), class: "dropdown-item" %> 
+<%
+=end%>
+                    <%= link_to "History", traveller_journeys_path(current_user_credential.user_id), class: "dropdown-item" %>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "Orders", traveller_orders_path(current_user_credential.user_id), class: "nav-link" %>
+                </li>
             <%end%>
             <% if current_user_credential && current_user_credential.user_type=="Sender" %>
                 <li class="nav-item active">
@@ -23,11 +40,7 @@
                     <%= link_to "Orders", sender_orders_path(current_user_credential.user_id), class: "nav-link" %>
                 </li>
             <%end%>
-            <% if current_user_credential && current_user_credential.user_type == "Traveller" %>
-                <li class="nav-item">
-                    <%= link_to "Journeys", traveller_journeys_path(current_user_credential.user_id), class: "nav-link" %>
-                </li>
-            <% end %>
+
 
             <%
 =begin%>
