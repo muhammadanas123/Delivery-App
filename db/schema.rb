@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_29_122845) do
+ActiveRecord::Schema.define(version: 2022_12_30_065858) do
+
+  create_table "items", force: :cascade do |t|
+    t.string "itemname"
+    t.integer "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_items_on_order_id"
+  end
 
   create_table "journeys", force: :cascade do |t|
     t.string "from"
@@ -76,6 +84,7 @@ ActiveRecord::Schema.define(version: 2022_12_29_122845) do
     t.index ["user_type", "user_id"], name: "index_user_credentials_on_user"
   end
 
+  add_foreign_key "items", "orders"
   add_foreign_key "journeys", "travellers"
   add_foreign_key "orders", "senders"
   add_foreign_key "orders", "travellers"
