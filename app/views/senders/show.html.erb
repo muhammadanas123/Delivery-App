@@ -14,7 +14,7 @@
                 <p class="text-muted mb-4"><%= address(@sender.city, @sender.state, @sender.country) %></p>
 
                 <div class="d-flex justify-content-center mb-2">
-                    <%= link_to "Edit", edit_traveller_path, class: "btn btn-outline-success my-2 my-sm-0 left-margin" %>
+                    <%= link_to "Edit", edit_sender_path, class: "btn btn-outline-success my-2 my-sm-0 left-margin" %>
                     <%= link_to "Delete Profile", sender_path(@sender), method: :delete, class: "btn btn-outline-danger my-2 my-sm-0 left-margin" %> 
                 </div>
             </div>

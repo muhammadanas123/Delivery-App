@@ -1,5 +1,4 @@
 import {Controller} from '@hotwired/stimulus'
-
 export default class extends Controller {
 
     static targets = [
@@ -9,9 +8,7 @@ export default class extends Controller {
 
     connect() {
         console.log("To controller is connected");
-        
     }
-
 
     initGoogle(){
         console.log(`Google maps is initialized and the address controller knows about it`)
@@ -20,7 +17,6 @@ export default class extends Controller {
             fields: ["address_components", "geometry"],
             types: ["address"]
         })
-
         this.autocomplete.addListener('place_changed', this.placeSelected.bind(this))
     }
 
@@ -28,26 +24,13 @@ export default class extends Controller {
         const place = this.autocomplete.getPlace();
         console.log(place);
 
-
         for (const component of place.address_components) {
-            // @ts-ignore remove once typings fixed
-            const componentType = component.types[0];
-        
+            const componentType = component.types[0];        
             switch (componentType) {
-              
-              case "locality":
+                case "locality":
                 this.cityTarget.value = component.long_name;
                 break;
-
-              
             }
-          }
-
-
-
-
-
-
+        }
     }
-
 }

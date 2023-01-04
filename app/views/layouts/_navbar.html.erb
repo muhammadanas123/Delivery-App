@@ -7,67 +7,46 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <% if current_user_credential && current_user_credential.user_type=="Traveller" %>
-                <li class="nav-item active">
-                    <%= link_to "Profile", traveller_path(current_user_credential.user_id), class: "nav-link" %>
-                </li>
-                
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Journey
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <%
-=begin%>
- <%= link_to "Current Journey", traveller_journey_path(current_user_credential.user_id,), class: "dropdown-item" %> 
-<%
-=end%>
-                    <%= link_to "History", traveller_journeys_path(current_user_credential.user_id), class: "dropdown-item" %>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Orders", traveller_orders_path(current_user_credential.user_id), class: "nav-link" %>
-                </li>
-            <%end%>
-            <% if current_user_credential && current_user_credential.user_type=="Sender" %>
-                <li class="nav-item active">
-                    <%= link_to "Profile", sender_path(current_user_credential.user_id), class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Travellers List", traveller_list_path, class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Orders", sender_orders_path(current_user_credential.user_id), class: "nav-link" %>
-                </li>
-            <%end%>
+                <% if current_user_credential && current_user_credential.user_type=="Traveller" %>
+                    <li class="nav-item active">
+                        <%= link_to "Profile", traveller_path(current_user_credential.user_id), class: "nav-link" %>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Journey
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <%= link_to "History", traveller_journeys_path(current_user_credential.user_id), class: "dropdown-item" %>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Orders", traveller_orders_path(current_user_credential.user_id), class: "nav-link" %>
+                    </li>
+                <% elsif current_user_credential && current_user_credential.user_type=="Sender" %>
+                    <li class="nav-item active">
+                        <%= link_to "Profile", sender_path(current_user_credential.user_id), class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Travellers List", traveller_list_path, class: "nav-link" %>
+                    </li>
+                    <li class="nav-item">
+                        <%= link_to "Orders", sender_orders_path(current_user_credential.user_id), class: "nav-link" %>
+                    </li>
+                <%end%>
 
-
-            <%
-=begin%>
- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Orders
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <%= link_to "Orders list", sender_orders_path(current_user_credential.user_id), class: "dropdown-item" %>
-                </div>
-            </li> 
-<%
-=end%>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
             </ul>
+            
             <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            <% if !current_user_credential %>
-                <%= link_to "Sign in", new_user_credential_session_path, class: "btn btn-outline-success my-2 my-sm-0 left-margin" %>
-            <%else%>
-                <%= link_to "Sign out", destroy_user_credential_session_path, method: :delete, class: "btn btn-outline-danger my-2 my-sm-0 left-margin" %>
-
-            <%end%>
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <% if !current_user_credential %>
+                    <%= link_to "Sign in", new_user_credential_session_path, class: "btn btn-outline-success my-2 my-sm-0 left-margin" %>
+                <%else%>
+                    <%= link_to "Sign out", destroy_user_credential_session_path, method: :delete, class: "btn btn-outline-danger my-2 my-sm-0 left-margin" %>
+                <%end%>
             </form>
+
         </div>
     </div>
 </nav>

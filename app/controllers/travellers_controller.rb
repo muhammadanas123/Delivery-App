@@ -3,11 +3,7 @@ class TravellersController < ApplicationController
     before_action :traveller_cannot_access_the_other_traveller_info, only: [:edit, :show, :update, :destroy]
     before_action :restrict_index_action, only: [:index]
     before_action :restrict_sender_to_access_traveller
-
-
-    # include TravellerHelper
-
-
+    before_action :find_and_set_traveller, only: [:show, :edit, :update, :destroy]
 
     def new
         @traveller = Traveller.new
@@ -21,64 +17,48 @@ class TravellersController < ApplicationController
             redirect_to traveller_path(@traveller)
         else
             render "new"
-
         end
-
-
     end
 
-    def show
-        @traveller = Traveller.find(current_user_credential.user_id)
-        # byebug
-    end
+    def show; end
 
-    def index
+    def index; end
 
-    end
-
-    def edit
-        @traveller = Traveller.find(params[:id])
-    end
+    def edit; end
 
     def update
-        @traveller = Traveller.find(params[:id])
         if @traveller.update(traveller_params)
             redirect_to traveller_path(@traveller)
         else
             render "edit"
-
         end
-
     end
 
     def orders
-        # byebug
-        @traveller = Traveller.find(current_user_credential.user_id)
+        @traveller = Traveller.find_by(id: params[:traveller_id])
         @orders = @traveller.orders
     end
 
     def destroy
-        byebug
-        @traveller = Traveller.find(params[:id])
         @traveller.destroy
         current_user_credential.destroy
         redirect_to root_path
         
     end
 
-
-
     private
     def traveller_params
         params.require(:traveller).permit(:firstname, :lastname, :phone_no, :landline, :city, :country, :state)
+    end
 
+    def find_and_set_traveller
+        @traveller = Traveller.find_by(id: params[:id])
     end
 
     def already_traveller
         if current_user_credential.user_type == "Traveller"
             flash["notice"] = "you'r already a traveller"
             redirect_to root_path
-
         end
     end
 
@@ -89,17 +69,10 @@ class TravellersController < ApplicationController
         end
     end
 
-    def restrict_index_action
-        if params[:action] == "index"
-            redirect_to root_path, notice: "you'r not authorised to access it."
-        end
-    end
-
     def restrict_sender_to_access_traveller
         if current_user_credential.user_type == "Sender"
             flash["notice"] = "you'r not authorised to access it."
             redirect_to root_path
         end
     end
-
 end

@@ -4,7 +4,5 @@ class UserCredential < ApplicationRecord
   belongs_to :user, polymorphic: true, optional: true
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-
-  # enum role: { admin: 0, traveller: 1, sender: 2 }
+          :recoverable, :rememberable, :validatable
 end

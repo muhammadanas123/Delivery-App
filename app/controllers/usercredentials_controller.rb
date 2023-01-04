@@ -1,4 +1,3 @@
 class UsercredentialsController < ApplicationController
 
-
 end
