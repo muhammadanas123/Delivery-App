@@ -30,8 +30,6 @@
                             <td><%=journey.capacity%></td>
                             <td>
                                 <%= link_to "place an order",  sender_new_order_path(current_user_credential.user_id,journey.traveller_id), class: "btn btn-outline-success my-2 my-sm-0 left-margin" %>
-
-                                
                             </td>
                         </tr>                        
                     <%end%>

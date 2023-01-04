@@ -1,54 +1,48 @@
 <div class="row">
     <div class="col-12">
         <%= form_with model: @traveller do |f| %>
-        <div class="form-group">
-            <%= f.label :firstname %>
-            <%= f.text_field :firstname, autofocus: true, autocomplete: 'firstname', class: 'form-control' %>
-        </div>
-
-        <div class="form-group">
-            <%= f.label :lastname %>
-            <%= f.text_field :lastname, autocomplete: 'lastname', class: 'form-control' %>
-        </div>
-
-        
-
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <%= f.label :phone_no %>
-                <%= f.number_field :phone_no, autocomplete: 'phone_no', class: 'form-control' %>
+            <div class="form-group">
+                <%= f.label :firstname %>
+                <%= f.text_field :firstname, autofocus: true, autocomplete: 'firstname', class: 'form-control' %>
             </div>
 
-            <div class="form-group col-md-6">
-                <%= f.label :landline %>
-                <%= f.number_field :landline, autocomplete: 'landline', class: 'form-control' %>
+            <div class="form-group">
+                <%= f.label :lastname %>
+                <%= f.text_field :lastname, autocomplete: 'lastname', class: 'form-control' %>
             </div>
-
-        </div>
 
             <div class="form-row">
-            <div class="form-group col-md-4">
-                <%= f.label :city %><br />
-                <%= f.text_field :city, autofocus: true, autocomplete: "city", class: "form-control" %>
+                <div class="form-group col-md-6">
+                    <%= f.label :phone_no %>
+                    <%= f.number_field :phone_no, autocomplete: 'phone_no', class: 'form-control' %>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <%= f.label :landline %>
+                    <%= f.number_field :landline, autocomplete: 'landline', class: 'form-control' %>
+                </div>
             </div>
 
-            <div class="form-group col-md-4">
-                <%= f.label :state %><br />
-                <%= f.text_field :state, autofocus: true, autocomplete: "state", class: "form-control" %>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <%= f.label :city %><br />
+                    <%= f.text_field :city, autofocus: true, autocomplete: "city", class: "form-control" %>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <%= f.label :state %><br />
+                    <%= f.text_field :state, autofocus: true, autocomplete: "state", class: "form-control" %>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <%= f.label :country %><br />
+                    <%= f.text_field :country, autofocus: true, autocomplete: "state", class: "form-control" %>
+                </div>
             </div>
 
-            <div class="form-group col-md-4">
-                <%= f.label :country %><br />
-                <%= f.text_field :country, autofocus: true, autocomplete: "state", class: "form-control" %>
+            <div class="actions">
+                <%= f.submit(@traveller.new_record? ? "Register" : "Update" , class: "btn btn-outline-success" )%>
             </div>
-        </div>
-
-
-
-        <div class="actions">
-            <%= f.submit(@traveller.new_record? ? "Register" : "Update" , class: "btn btn-outline-success" )%>
-        </div>
         <% end %>
-
     </div>
 </div>

@@ -4,7 +4,6 @@ class CreateSenders < ActiveRecord::Migration[6.1]
       t.string :firstname
       t.string :lastname
       t.integer :phone_no
-
       t.timestamps
     end
   end
