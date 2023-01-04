@@ -1,0 +1,39 @@
+<div class="container">
+    <h1>Travellers</h1>
+    
+     <%= form_tag(traveller_list_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+        <%= text_field_tag :from, params[:from], class: "form-control mr-sm-2" %> 
+        <%= text_field_tag :to, params[:to], class: "form-control mr-sm-2" %> 
+        <%= text_field_tag :capacity, params[:capacity], class: "form-control mr-sm-2" %> 
+        <%= submit_tag('Search', name: :nill, class: "btn btn-success my-2 my-sm-0") %>
+    <%end%>
+    </br>
+    <% if @journeys %>
+        <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Traveller</th>
+                    <th scope="col">Capacity</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @journeys.each do | journey | %>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td><%=journey.from%></td>
+                            <td><%=journey.to%></td>
+                            <td><%=journey.traveller.firstname%></td>
+                            <td><%=journey.capacity%></td>
+                            <td>
+                                <%= link_to "place an order",  sender_new_order_path(current_user_credential.user_id,journey.traveller_id), class: "btn btn-outline-success my-2 my-sm-0 left-margin" %>
+                            </td>
+                        </tr>                        
+                    <%end%>
+                </tbody>
+            </table> 
+    <% end %>
+</div>

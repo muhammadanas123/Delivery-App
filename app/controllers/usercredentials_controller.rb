@@ -1,0 +1,3 @@
+class UsercredentialsController < ApplicationController
+
+end
