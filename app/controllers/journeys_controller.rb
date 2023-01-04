@@ -9,7 +9,6 @@ class JourneysController < ApplicationController
     end
 
     def create 
-        byebug
         @journey = @traveller.journeys.create(journey_params)
         @journey.update(from: params[:journey][:from].downcase, to: params[:journey][:to].downcase)
         redirect_to traveller_journeys_path(@traveller, @journey), notice: "successfully created a journey"
