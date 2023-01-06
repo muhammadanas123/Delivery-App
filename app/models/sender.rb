@@ -1,5 +1,5 @@
 class Sender < ApplicationRecord
-    has_one :user_credential
+    has_one :user_credential, as: :user
     has_many :orders, dependent: :destroy
 
     validates_associated :orders
