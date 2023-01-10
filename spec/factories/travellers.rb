@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :traveller do
     firstname { "anas" }
     lastname { "farooqi" }
@@ -9,5 +8,4 @@ FactoryBot.define do
     state { "punjab" }
     country { "pakistan" }
   end
- 
 end

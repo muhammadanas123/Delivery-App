@@ -54,15 +54,15 @@ RSpec.describe Journey, type: :model do
 
   end
 
-  # describe ".search" do
-  #   it "should search on the basis of (from, to and capacity)" do
-  #     traveller = Traveller.create(firstname: "anas", lastname: "mazhar", phone_no: 11111111111, landline: 11111111111, city: "lahore", state: "punjab", country: "pakistan")
-  #     journey = Journey.create( from: "lahore", to: "islamabad", departure_date: "27-11-2022", arrival_date: "28-11-2022", capacity: 20, rate: 333, traveller_id: traveller.id)
+  describe ".search" do
+    it "should search on the basis of (from, to and capacity)" do
+      traveller = Traveller.create(firstname: "anas", lastname: "mazhar", phone_no: 11111111111, landline: 11111111111, city: "lahore", state: "punjab", country: "pakistan")
+      journey = Journey.create( from: "lahore", to: "islamabad", departure_date: "27-11-2022", arrival_date: "28-11-2022", capacity: 20, rate: 333, traveller_id: traveller.id)
       
-  #     from = "lahore"
-  #     to = "islamabad"
-  #     capacity = 22
-  #     Journey.search(from,to,capacity)
-  #   end
-  # end
+      from = "lahore"
+      to = "islamabad"
+      capacity = 22
+      expect(Journey.search(from,to,capacity).empty?).to eq(false)
+    end
+  end
 end
