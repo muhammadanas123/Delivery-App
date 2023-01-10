@@ -61,7 +61,7 @@ RSpec.describe Journey, type: :model do
       
       from = "lahore"
       to = "islamabad"
-      capacity = 22
+      capacity = 19      
       expect(Journey.search(from,to,capacity).empty?).to eq(false)
     end
   end
