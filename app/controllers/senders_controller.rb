@@ -35,7 +35,7 @@ class SendersController < ApplicationController
     def destroy
         @sender.destroy
         current_user_credential.destroy
-        redirect_to root_path
+        redirect_to new_user_credential_session_path
     end
 
     def index; end

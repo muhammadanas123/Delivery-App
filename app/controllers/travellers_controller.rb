@@ -14,6 +14,7 @@ class TravellersController < ApplicationController
         if @traveller.save
             current_user_credential.user = @traveller
             current_user_credential.save
+            flash["notice"] = "successfully registered"
             redirect_to traveller_path(@traveller)
         else
             render "new"
@@ -42,7 +43,7 @@ class TravellersController < ApplicationController
     def destroy
         @traveller.destroy
         current_user_credential.destroy
-        redirect_to root_path
+        redirect_to new_user_credential_session_path 
         
     end
 

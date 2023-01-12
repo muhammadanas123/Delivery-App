@@ -44,7 +44,7 @@ class JourneysController < ApplicationController
 
     def destroy
         @journey.destroy
-        redirect_to traveller_journeys_path
+        redirect_to traveller_journeys_path(@traveller)
     end
 
     private
