@@ -14,7 +14,9 @@ class JourneysController < ApplicationController
         redirect_to traveller_journeys_path(@traveller), notice: "successfully created a journey"
     end
 
-    def show; end
+    def show
+    variable = Journey.not_completed_journey_id
+    end
 
     def index
         @journeys = @traveller.journeys.completed_journies

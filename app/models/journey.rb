@@ -12,4 +12,8 @@ class Journey < ApplicationRecord
   def self.completed_journies
     Journey.where(status: "completed")
   end
+
+  def self.not_completed_journey_id
+    byebug
+  end
 end
