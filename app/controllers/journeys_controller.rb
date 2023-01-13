@@ -25,12 +25,16 @@ class JourneysController < ApplicationController
     def update
         from = @journey.from
         to = @journey.to
-        if journey_params[:from] == "" && journey_params[:to] == ""
-            @journey.update(from: from, to: to, departure_date: journey_params[:departure_date], arrival_date: journey_params[:arrival_date], capacity: journey_params[:capacity], rate: journey_params[:rate])
-        elsif journey_params[:from] == ""
-            @journey.update(from: from, to: journey_params[:to], departure_date: journey_params[:departure_date], arrival_date: journey_params[:arrival_date], capacity: journey_params[:capacity], rate: journey_params[:rate])
-        elsif journey_params[:to] == ""
-            @journey.update(from: journey_params[:from], to: to, departure_date: journey_params[:departure_date], arrival_date: journey_params[:arrival_date], capacity: journey_params[:capacity], rate: journey_params[:rate])
+        if !journey_params[:from].present? && !journey_params[:to].present?
+            @journey.update(journey_params)
+            @journey.update(from: from)
+            @journey.update(to: to)
+        elsif !journey_params[:from].present?
+            @journey.update(journey_params)
+            @journey.update(from: from)
+        elsif !journey_params[:to].present?
+            @journey.update(journey_params)
+            @journey.update(to: to)
         else
             @journey.update(journey_params)
         end
