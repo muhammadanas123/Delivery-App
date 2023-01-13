@@ -26,8 +26,6 @@ RSpec.describe "Travellers", type: :request do
       expect(UserCredential.first.user).to eq(Traveller.first)   
       expect(response).to redirect_to(Traveller.first)
       follow_redirect!
-      # get traveller_path(Traveller.first)
-      # expect(response).to have_http_status(200)
     end
 
     it "does not create traveller due to problem in params" do

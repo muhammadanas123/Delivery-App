@@ -17,7 +17,7 @@ class JourneysController < ApplicationController
     def show; end
 
     def index
-        @journeys = @traveller.journeys
+        @journeys = @traveller.journeys.completed_journies
     end
 
     def edit; end
