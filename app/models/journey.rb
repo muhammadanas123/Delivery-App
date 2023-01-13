@@ -9,8 +9,8 @@ class Journey < ApplicationRecord
     Journey.where(from: from.downcase, to: to.downcase).where("capacity > ?",capacity.to_i)
   end
 
-  def self.completed_journies
-    Journey.where(status: "completed")
+  def self.completed_journies(traveller_id)
+    Journey.where(traveller_id: traveller_id, status: "completed")
   end
 
   def self.not_completed_journey_id

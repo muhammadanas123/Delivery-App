@@ -19,7 +19,7 @@ class JourneysController < ApplicationController
     end
 
     def index
-        @journeys = @traveller.journeys.completed_journies
+        @journeys = @traveller.journeys.completed_journies(current_user_credential.id)
     end
 
     def edit; end
