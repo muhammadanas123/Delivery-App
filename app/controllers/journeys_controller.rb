@@ -47,8 +47,12 @@ class JourneysController < ApplicationController
     end
 
     def destroy
-        @journey.destroy
-        redirect_to traveller_journeys_path(@traveller)
+        if @journey.destroy
+            redirect_to traveller_journeys_path(@traveller)
+        else
+            flash[:notice] = "did not destroy."
+            render "show"
+        end
     end
 
     private

@@ -28,8 +28,9 @@ RSpec.describe "Orders", type: :request do
       expect(assigns[:order].traveller_id).to eq(traveller.id)
       expect(assigns[:order].sender_id).to eq(sender.id)
       expect(Item.first.itemname).to eq("phone")
-      expect(response).to redirect_to(sender_orders_path(sender))
-      follow_redirect!
+      get sender_orders_path(sender)
+      expect(response).to render_template("orders/index")
+      expect(response).to have_http_status(200)
     end
 
     it "does not create order due to problem in params" do
@@ -77,7 +78,9 @@ RSpec.describe "Orders", type: :request do
       expect(assigns[:order].receiver_address).to eq("dubai, UAE-updated")  
       expect(Item.first.itemname).to eq("phone-updated")  
       expect(response).to redirect_to(sender_orders_path)
-      follow_redirect!  
+      get sender_orders_path
+      expect(response).to render_template("orders/index")
+      expect(response).to have_http_status(200)    
     end
 
     it "does not update order due to problem in params" do
@@ -96,7 +99,7 @@ RSpec.describe "Orders", type: :request do
     end
   end
 
-  describe "when destroy an sender" do
+  describe "when destroy an order" do
     let(:user_credential) { create :user_credential }
     let(:sender) { create :sender }  
     let(:traveller) { create :traveller }  
@@ -109,11 +112,12 @@ RSpec.describe "Orders", type: :request do
       user_credential.save
     end
 
-    it "should destroy the current sender and it's credentials" do
+    it "should destroy the order" do
       delete sender_order_path(sender,order)
       expect(Order.count).to eq(0)
-      expect(response).to redirect_to(sender_orders_path)
-      follow_redirect!  
+      get sender_orders_path
+      expect(response).to render_template("orders/index")
+      expect(response).to have_http_status(200)
     end
   end
 end

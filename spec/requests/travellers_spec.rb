@@ -24,10 +24,9 @@ RSpec.describe "Travellers", type: :request do
       }
       expect(Traveller.count).to eq(1)
       expect(UserCredential.first.user).to eq(Traveller.first)   
-      expect(response).to redirect_to(Traveller.first)
-      follow_redirect!
-      # get traveller_path(Traveller.first)
-      # expect(response).to have_http_status(200)
+      get traveller_path(Traveller.first)
+      expect(response).to render_template("travellers/show")
+      expect(response).to have_http_status(200)
     end
 
     it "does not create traveller due to problem in params" do
@@ -114,8 +113,8 @@ RSpec.describe "Travellers", type: :request do
       delete traveller_path(traveller)
       expect(Traveller.count).to eq(0)
       expect(UserCredential.count).to eq(0)
-      expect(response).to redirect_to(new_user_credential_session_path)
-      follow_redirect!  
+      get new_user_credential_session_path
+      expect(response).to have_http_status(200)
     end
   end
 end

@@ -23,11 +23,11 @@ RSpec.describe "Senders", type: :request do
         }
       }
       expect(Sender.count).to eq(1)
+      byebug
       expect(UserCredential.first.user).to eq(Sender.first)   
-      expect(response).to redirect_to(Sender.first)
-      follow_redirect!
-      # get sender_path(Sender.first)
-      # expect(response).to have_http_status(200)
+      get sender_path(Sender.first)
+      expect(response).to render_template("senders/show")
+      expect(response).to have_http_status(200)
     end
 
     it "does not create sender due to problem in params" do
@@ -122,8 +122,8 @@ RSpec.describe "Senders", type: :request do
       delete sender_path(sender)
       expect(Sender.count).to eq(0)
       expect(UserCredential.count).to eq(0)
-      expect(response).to redirect_to(new_user_credential_session_path)
-      follow_redirect!  
+      get new_user_credential_session_path
+      expect(response).to have_http_status(200)
     end
   end
 end

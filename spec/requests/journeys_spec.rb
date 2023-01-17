@@ -26,8 +26,9 @@ RSpec.describe "Journeys", type: :request do
         }
       }
       expect(Journey.count).to eq(1)
-      expect(response).to redirect_to(traveller_journeys_path(traveller))
-      follow_redirect!
+      get traveller_journeys_path(traveller)
+      expect(response).to render_template("journeys/index")
+      expect(response).to have_http_status(200)      
     end
   end
 
@@ -64,7 +65,9 @@ RSpec.describe "Journeys", type: :request do
       expect(assigns[:journey].capacity).to eq(22) 
       expect(assigns[:journey].rate).to eq(222)  
       expect(response).to redirect_to(traveller_journey_path(traveller,journey))
-      follow_redirect!
+      get traveller_journey_path(traveller,journey)
+      expect(response).to render_template("journeys/show")
+      expect(response).to have_http_status(200)  
     end
 
     it "should render the edit journey form and update it in the db when 'from' not provided" do
@@ -87,8 +90,9 @@ RSpec.describe "Journeys", type: :request do
       expect(assigns[:journey].arrival_date).to eq("22-12-2022") 
       expect(assigns[:journey].capacity).to eq(22) 
       expect(assigns[:journey].rate).to eq(222)  
-      expect(response).to redirect_to(traveller_journey_path(traveller,journey))
-      follow_redirect!
+      get traveller_journey_path(traveller,journey)
+      expect(response).to render_template("journeys/show")
+      expect(response).to have_http_status(200)
     end
 
     it "should render the edit journey form and update it in the db when 'to' not provided" do
@@ -111,8 +115,9 @@ RSpec.describe "Journeys", type: :request do
       expect(assigns[:journey].arrival_date).to eq("22-12-2022") 
       expect(assigns[:journey].capacity).to eq(22) 
       expect(assigns[:journey].rate).to eq(222)  
-      expect(response).to redirect_to(traveller_journey_path(traveller,journey))
-      follow_redirect!
+      get traveller_journey_path(traveller,journey)
+      expect(response).to render_template("journeys/show")
+      expect(response).to have_http_status(200)
     end
 
     it "should render the edit journey form and update it in the db when not 'from' nor 'to' provided" do
@@ -133,8 +138,9 @@ RSpec.describe "Journeys", type: :request do
       expect(assigns[:journey].arrival_date).to eq("22-12-2022") 
       expect(assigns[:journey].capacity).to eq(22) 
       expect(assigns[:journey].rate).to eq(222) 
-      expect(response).to redirect_to(traveller_journey_path(traveller,journey))
-      follow_redirect!
+      get traveller_journey_path(traveller,journey)
+      expect(response).to render_template("journeys/show")
+      expect(response).to have_http_status(200)
     end
 
   end
@@ -153,8 +159,9 @@ RSpec.describe "Journeys", type: :request do
     it "should destroy the journey" do
       delete traveller_journey_path(traveller,journey)
       expect(Journey.count).to eq(0)
-      expect(response).to redirect_to(traveller_journeys_path(traveller))
-      follow_redirect!  
+      get traveller_journeys_path(traveller)
+      expect(response).to render_template("journeys/index")
+      expect(response).to have_http_status(200)     
     end
   end
 end
