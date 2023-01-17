@@ -3,10 +3,13 @@
     <div class="card" style="width: 18rem;">
         <img src="https://images.unsplash.com/reserve/91JuTaUSKaMh2yjB1C4A_IMG_9284.jpg?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="card-img-top" alt="...">
         <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">Journey</h5>
             <p class="card-text"><%= @journey.from%></p>
             <p class="card-text"><%= @journey.to%></p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <% if @journey.not_completed? %>
+                <%= link_to "Edit", edit_traveller_journey_path(@traveller,@journey) %><br>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            <% end %>
         </div>
     </div>
 </div>

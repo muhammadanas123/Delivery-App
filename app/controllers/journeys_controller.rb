@@ -10,16 +10,18 @@ class JourneysController < ApplicationController
 
     def create 
         @journey = @traveller.journeys.create(journey_params)
-        @journey.update(from: params[:journey][:from].downcase, to: params[:journey][:to].downcase)
-        redirect_to traveller_journeys_path(@traveller), notice: "successfully created a journey"
+        if @journey.valid?
+            @journey.update(from: params[:journey][:from].downcase, to: params[:journey][:to].downcase)
+            redirect_to traveller_journey_path(@traveller,@journey), notice: "successfully created a journey"
+        else
+            render "new", notice: "there is some error while creating"
+        end
     end
 
-    def show
-    variable = Journey.not_completed_journey_id
-    end
+    def show; end
 
     def index
-        @journeys = @traveller.journeys.completed_journies(current_user_credential.id)
+        @journeys = @traveller.journeys.completed_journies(current_user_credential.user_id)
     end
 
     def edit; end
@@ -61,7 +63,7 @@ class JourneysController < ApplicationController
     end
 
     def journey_params
-        params.require(:journey).permit(:from, :to, :departure_date, :arrival_date, :capacity, :rate)
+        params.require(:journey).permit(:from, :to, :departure_date, :arrival_date, :capacity, :rate, :status)
     end
 
     def traveller_cannot_access_the_other_traveller_info

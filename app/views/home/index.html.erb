@@ -10,7 +10,9 @@
             <h1>Sender</h1>
         <% else %>
             <h1>Traveller</h1>
-            <%= link_to "New Journey", new_traveller_journey_path(current_user_credential.user_id), class: "btn btn-outline-dark" %>
+            <% if !Traveller.find_by(id: current_user_credential.user_id).journeys.not_completed.any? %>
+                <%= link_to "New Journey", new_traveller_journey_path(current_user_credential.user_id), class: "btn btn-outline-dark" %>
+            <% end %>
         <%end%>
     <% end %>
 </div>

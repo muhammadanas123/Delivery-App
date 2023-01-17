@@ -1,6 +1,13 @@
 <div class="row">
     <div class="col-12">
         <%= form_with model: [@traveller, @journey ] do |f| %>
+            <% if @journey.errors.any? %>
+                <ul>
+                    <% @journey.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                </ul>
+            <% end %>
             <div class="form-row">
                 <div class="form-group col-md-6" data-controller="from" data-action="map-loaded@window->from#initGoogle" >
                     <label for="from">From</label>
@@ -39,6 +46,12 @@
                 </div>
             </div>
 
+            <% if !@journey.new_record? && @journey.not_completed? %>
+                <div class="actions">
+                    <%= f.radio_button :status, "completed" %>
+                    <%= f.label :status, "completed" %><br>
+                </div>
+            <% end %>
             <div class="actions">
                 <%= f.submit(@journey.new_record? ? "Create" : "Update" , class: "btn btn-outline-success")%>
             </div>

@@ -6,14 +6,19 @@ class Journey < ApplicationRecord
   enum status: { not_completed: 0, completed: 1 }, _default: "not_completed"
   private
   def self.search(from,to,capacity)
-    Journey.where(from: from.downcase, to: to.downcase).where("capacity > ?",capacity.to_i)
+    where(from: from.downcase, to: to.downcase, status: "not_completed").where("capacity > ?",capacity.to_i)
   end
 
   def self.completed_journies(traveller_id)
-    Journey.where(traveller_id: traveller_id, status: "completed")
+    where(traveller_id: traveller_id, status: "completed")
   end
 
-  def self.not_completed_journey_id
-    byebug
+  def self.not_completed_journey(traveller_id)
+    where(traveller_id: traveller_id, status: "not_completed")
+  end
+
+  def self.not_completed_journey_id(traveller_id)
+    journey = where(traveller_id: traveller_id, status: "not_completed")
+    journey[0].id
   end
 end

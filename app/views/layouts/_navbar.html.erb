@@ -16,16 +16,14 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Journey
                         </a>
-                        <%
-=begin%>
- <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <%= link_to "Current Journey", traveller_journey_path(current_user_credential.user_id,), class: "dropdown-item" %>
-                        </div> 
-<%
-=end%>
+
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <% if Journey.not_completed_journey(current_user_credential.user_id).any? %>
+                                <%= link_to "Current Journey", traveller_journey_path(current_user_credential.user_id,Journey.not_completed_journey_id(current_user_credential.user)), class: "dropdown-item" %>
+                            <% end %>
                             <%= link_to "History", traveller_journeys_path(current_user_credential.user_id), class: "dropdown-item" %>
-                        </div>
+                        </div> 
+
                     </li>
                     <li class="nav-item">
                         <%= link_to "Orders", traveller_orders_path(current_user_credential.user_id), class: "nav-link" %>

@@ -1,6 +1,13 @@
 <div class="row">
     <div class="col-12">
         <%= form_with model: @sender do |f| %>
+            <% if @sender.errors.any? %>
+                <ul>
+                    <% @sender.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                </ul>
+            <% end %>
             <div class="form-group">
                 <%= f.label :firstname %>
                 <%= f.text_field :firstname, autofocus: true, autocomplete: 'firstname', class: 'form-control' %>

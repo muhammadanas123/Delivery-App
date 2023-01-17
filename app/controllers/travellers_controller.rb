@@ -43,7 +43,7 @@ class TravellersController < ApplicationController
     def destroy
         @traveller.destroy
         current_user_credential.destroy
-        redirect_to new_user_credential_session_path 
+        redirect_to root_path
         
     end
 
