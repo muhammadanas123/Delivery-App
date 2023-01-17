@@ -9,18 +9,23 @@ RSpec.describe Traveller, type: :model do
     end
 
     it "should validates the firstname" do
-      traveller = Traveller.new(firstname: "anas")
-      expect(traveller).to be_valid
+      traveller.firstname = "al"
+      expect(traveller).to_not be_valid
+      expect(traveller.errors.full_messages[0]).to eq("Firstname is too short (minimum is 3 characters)") 
     end
 
     it "should validates the lastname" do
-      traveller = Traveller.new(lastname: "mazhar")
-      expect(traveller).to be_valid
+      traveller.lastname = "al"
+      expect(traveller).to_not be_valid
+      expect(traveller.errors.full_messages[0]).to eq("Lastname is too short (minimum is 3 characters)") 
     end
 
     it "should validates the phone number and landline" do
-      traveller = Traveller.new(phone_no: 11111111111, landline: 11111111111)
-      expect(traveller).to be_valid
+      traveller.phone_no = 11111111
+      traveller.landline = 111111
+      expect(traveller).to_not be_valid
+      expect(traveller.errors.full_messages[0]).to eq("Phone no is too short (minimum is 11 characters)")
+      expect(traveller.errors.full_messages[1]).to eq("Landline is too short (minimum is 11 characters)")    
     end
 
     describe "Associations" do
@@ -31,28 +36,16 @@ RSpec.describe Traveller, type: :model do
     end
 
     context "when destroying the traveller" do
+      let(:traveller) { create :traveller } 
       it "should destroyed the traveller" do
-        traveller = Traveller.create(firstname: "anas", 
-                                      lastname: "mazhar", 
-                                      phone_no: 11111111111, 
-                                      landline: 11111111111, 
-                                      city: "lahore", 
-                                      state: "punjab", 
-                                      country: "pakistan")
         traveller.destroy
         expect(traveller.destroyed?).to eq(true)
       end
     end
 
     context "when updating the traveller" do
+      let(:traveller) { create :traveller } 
       it "should update the traveller" do
-        traveller = Traveller.create(firstname: "anas", 
-                                      lastname: "mazhar", 
-                                      phone_no: 11111111111, 
-                                      landline: 11111111111, 
-                                      city: "lahore", 
-                                      state: "punjab", 
-                                      country: "pakistan")
         params = { firstname: "anas-updated", 
         lastname: "mazhar-updated", 
         phone_no: 11111111111, 
