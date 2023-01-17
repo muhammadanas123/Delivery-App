@@ -6,3 +6,5 @@ module ApplicationHelper
         "#{firstname} #{lastname}"
     end
 end
+
+
