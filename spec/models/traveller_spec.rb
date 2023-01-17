@@ -7,7 +7,6 @@ RSpec.describe Traveller, type: :model do
     it "should be valid traveller with all attributes" do
       expect(traveller.valid?).to eq(true)
     end
-
     it "should validates the firstname" do
       traveller.firstname = "al"
       expect(traveller).to_not be_valid
