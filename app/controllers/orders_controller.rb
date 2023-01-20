@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
     end
 
     def show
-        render json: @order
+        render json: @order, include: [:items]
     end
 
     def destroy

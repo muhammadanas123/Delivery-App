@@ -21,7 +21,9 @@
                             <% if Journey.not_completed_journey(current_user_credential.user_id).any? %>
                                 <%= link_to "Current Journey", traveller_journey_path(current_user_credential.user_id,Journey.not_completed_journey_id(current_user_credential.user)), class: "dropdown-item" %>
                             <% end %>
-                            <%= link_to "History", traveller_journeys_path(current_user_credential.user_id), class: "dropdown-item" %>
+                            <% if Journey.completed_journies(current_user_credential.user_id).any? %>
+                                <%= link_to "History", traveller_journeys_path(current_user_credential.user_id), class: "dropdown-item" %>
+                            <% end %>
                         </div> 
 
                     </li>

@@ -7,8 +7,7 @@
             <p class="card-text"><%= @journey.from%></p>
             <p class="card-text"><%= @journey.to%></p>
             <% if @journey.not_completed? %>
-                <%= link_to "Edit", edit_traveller_journey_path(@traveller,@journey) %><br>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <%= link_to "Edit", edit_traveller_journey_path(@traveller,@journey), class: "btn btn-primary btn-sm" %><br>
             <% end %>
         </div>
     </div>
