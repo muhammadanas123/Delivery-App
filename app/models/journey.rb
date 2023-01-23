@@ -1,5 +1,6 @@
 class Journey < ApplicationRecord
-  belongs_to :traveller
+  resourcify
+  belongs_to :user
   
   validates :from, :to, :departure_date, :arrival_date, :capacity, :rate, presence: true
   validates :capacity, numericality: { greater_than_or_equal_to: 5, less_than_or_equal_to: 40,  only_integer: true }
@@ -10,15 +11,15 @@ class Journey < ApplicationRecord
   end
 
   def self.completed_journies(traveller_id)
-    where(traveller_id: traveller_id, status: "completed")
+    where(user_id: traveller_id, status: "completed")
   end
 
   def self.not_completed_journey(traveller_id)
-    where(traveller_id: traveller_id, status: "not_completed")
+    where(user_id: traveller_id, status: "not_completed")
   end
 
   def self.not_completed_journey_id(traveller_id)
-    journey = where(traveller_id: traveller_id, status: "not_completed")
+    journey = where(user_id: traveller_id, status: "not_completed")
     journey[0].id
   end
 end

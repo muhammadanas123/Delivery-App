@@ -21,6 +21,7 @@ gem 'devise'
 gem "cocoon"
 gem 'formtastic'
 gem 'rails-controller-testing'
+gem "rolify"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

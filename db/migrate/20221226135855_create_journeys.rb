@@ -7,7 +7,7 @@ class CreateJourneys < ActiveRecord::Migration[6.1]
       t.text :arrival_date
       t.integer :capacity
       t.integer :rate
-      t.references :traveller, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
       t.timestamps
     end
   end

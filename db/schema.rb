@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_02_143825) do
+ActiveRecord::Schema.define(version: 2023_01_23_130315) do
 
   create_table "items", force: :cascade do |t|
     t.string "itemname"
@@ -27,50 +27,35 @@ ActiveRecord::Schema.define(version: 2023_01_02_143825) do
     t.text "arrival_date"
     t.integer "capacity"
     t.integer "rate"
-    t.integer "traveller_id", null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status"
-    t.index ["traveller_id"], name: "index_journeys_on_traveller_id"
+    t.index ["user_id"], name: "index_journeys_on_user_id"
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "traveller_id", null: false
-    t.integer "sender_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "traveller_id"
+    t.integer "sender_id"
     t.string "receiver_name"
     t.integer "receiver_phone"
     t.text "receiver_address"
-    t.index ["sender_id"], name: "index_orders_on_sender_id"
-    t.index ["traveller_id"], name: "index_orders_on_traveller_id"
   end
 
-  create_table "senders", force: :cascade do |t|
-    t.string "firstname"
-    t.string "lastname"
-    t.integer "phone_no"
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.integer "resource_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "landline"
-    t.string "city"
-    t.string "state"
-    t.string "country"
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
-  create_table "travellers", force: :cascade do |t|
-    t.string "firstname"
-    t.string "lastname"
-    t.integer "phone_no"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "landline"
-    t.string "city"
-    t.string "state"
-    t.string "country"
-  end
-
-  create_table "user_credentials", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -78,15 +63,25 @@ ActiveRecord::Schema.define(version: 2023_01_02_143825) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "user_type"
+    t.string "firstname"
+    t.string "lastname"
+    t.integer "phone_no"
+    t.integer "landline"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
-    t.index ["email"], name: "index_user_credentials_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_user_credentials_on_reset_password_token", unique: true
-    t.index ["user_type", "user_id"], name: "index_user_credentials_on_user"
+    t.integer "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
   add_foreign_key "items", "orders"
-  add_foreign_key "journeys", "travellers"
-  add_foreign_key "orders", "senders"
-  add_foreign_key "orders", "travellers"
+  add_foreign_key "journeys", "users"
 end

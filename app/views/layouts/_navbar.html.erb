@@ -5,9 +5,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <%
+=begin%>
+ <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <% if current_user_credential && current_user_credential.user_type=="Traveller" %>
+                <% if current_user && current_user.has_role? :traveller, :any %>
                     <li class="nav-item active">
                         <%= link_to "Profile", traveller_path(current_user_credential.user_id), class: "nav-link" %>
                     </li>
@@ -54,6 +56,8 @@
                 <%end%>
             </form>
 
-        </div>
+        </div> 
+<%
+=end%>
     </div>
 </nav>
