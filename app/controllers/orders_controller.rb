@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
-    before_action :restrict_traveller_to_access_orders
-    before_action :cannot_access_the_other_senders_orders
+    # before_action :restrict_traveller_to_access_orders
+    # before_action :cannot_access_the_other_senders_orders
     before_action :set_sender, only: [:new, :create, :edit, :update, :index]
-    before_action :find_and_set_orders, only: [:show, :destroy]
+    # before_action :find_and_set_orders, only: [:show, :destroy]
+    # load_and_authorize_resource
+
 
     def new 
         @order = @sender.orders.build
@@ -57,7 +59,9 @@ class OrdersController < ApplicationController
     end
 
     def set_sender
-        @sender = Sender.find_by(id: params[:sender_id])
+        if current_user.has_role? :sender
+            @sender = User.find_by(id: current_user.id)
+        end
     end
 
     def restrict_traveller_to_access_orders

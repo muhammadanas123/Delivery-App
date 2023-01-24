@@ -1,0 +1,14 @@
+<div class="card mb-4">
+<div class="card-body text-center">
+    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+    class="rounded-circle img-fluid" style="width: 150px;">
+    <h5 class="my-3"><%=current_user.firstname%></h5>
+    <p class="text-muted mb-1"><%=current_user.roles_name %></p>
+    <p class="text-muted mb-4"><%= address(current_user.city, current_user.state, current_user.country) %></p>
+
+    <div class="d-flex justify-content-center mb-2">
+        <%= link_to "Edit", edit_user_registration_path, class: "btn btn-outline-success my-2 my-sm-0 left-margin" %>
+        <%= link_to "Delete Profile", user_registration_path, method: :delete, class: "btn btn-outline-danger my-2 my-sm-0 left-margin" %> 
+    </div>
+</div>
+</div>

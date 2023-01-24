@@ -5,7 +5,7 @@
         <p class="mb-0">Full Name</p>
     </div>
     <div class="col-sm-9">
-        <p class="text-muted mb-0"><%=full_name(@sender.firstname, @sender.lastname)%></p>
+        <p class="text-muted mb-0"><%=full_name(current_user.firstname, current_user.lastname)%></p>
     </div>
     </div>
     <hr>
@@ -14,7 +14,7 @@
         <p class="mb-0">Email</p>
     </div>
     <div class="col-sm-9">
-        <p class="text-muted mb-0"><%=current_user_credential.email%></p>
+        <p class="text-muted mb-0"><%=current_user.email%></p>
     </div>
     </div>
     <hr>
@@ -23,7 +23,7 @@
         <p class="mb-0">Phone</p>
     </div>
     <div class="col-sm-9">
-        <p class="text-muted mb-0"><%= @sender.phone_no%></p>
+        <p class="text-muted mb-0"><%= current_user.phone_no%></p>
     </div>
     </div>
     <hr>
@@ -32,7 +32,7 @@
         <p class="mb-0">Landline</p>
     </div>
     <div class="col-sm-9">
-        <p class="text-muted mb-0"><%= @sender.landline%></p>
+        <p class="text-muted mb-0"><%= current_user.landline%></p>
     </div>
     </div>
     <hr>
@@ -41,7 +41,7 @@
         <p class="mb-0">Address</p>
     </div>
     <div class="col-sm-9">
-        <p class="text-muted mb-0"><%= address(@sender.city, @sender.state, @sender.country) %></p>
+        <p class="text-muted mb-0"><%= address(current_user.city, current_user.state, current_user.country) %></p>
     </div>
     </div>
 </div>

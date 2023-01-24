@@ -1,18 +1,26 @@
 <div class="container text-center">
-    <h1>Welcome to Delivery App</h1>
+    <h1>Welcome to Delivery App, <%=current_user.firstname.capitalize%></h1>
 
-    <% if current_user_credential %>
-        <% if current_user_credential.user_type == nil %>
+    <% if current_user %>
+        <% if !current_user.has_any_role? %>
             <h1>neither sender nor traveller</h1>
-            <%= link_to "Become Traveller", new_traveller_path, class: "btn btn-dark" %>
-            <%= link_to "Become Sender", new_sender_path, class: "btn btn-outline-dark" %>
-        <%elsif current_user_credential.user_type == "Sender" %>
-            <h1>Sender</h1>
+            <div class="actions">
+                <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+                    <%= hidden_field_tag(:role, "traveller") %>
+                    <%= submit_tag('Become Traveller', name: :nil, class: "btn btn-success my-2 my-sm-0") %>
+                <%end%> 
+                <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+                    <%= hidden_field_tag(:role, "sender") %>
+                    <%= submit_tag('Become Sender', name: :nil, class: "btn btn-success my-2 my-sm-0") %>
+                <%end%>
+            </div>
+        <%elsif current_user.has_role? :sender %>
+            <h1>You'r a sender</h1>
         <% else %>
             <h1>Traveller</h1>
-            <% if !Traveller.find_by(id: current_user_credential.user_id).journeys.not_completed.any? %>
-                <%= link_to "New Journey", new_traveller_journey_path(current_user_credential.user_id), class: "btn btn-outline-dark" %>
-            <% end %>
+            <% if !User.find_by(id: current_user.id).journeys.not_completed.any? %>
+                <%= link_to "New Journey", new_journey_path, class: "btn btn-outline-dark" %>
+            <% end %> 
         <%end%>
     <% end %>
 </div>

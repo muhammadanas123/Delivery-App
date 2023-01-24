@@ -1,4 +1,5 @@
 class JourneysController < ApplicationController
+    load_and_authorize_resource
     before_action :traveller_cannot_access_the_other_traveller_info, only: [:edit, :show, :update, :destroy]
     before_action :find_and_set_journey, only: [:show, :edit, :update, :destroy]
     before_action :restrict_sender_to_access_journey
