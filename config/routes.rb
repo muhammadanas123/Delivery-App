@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     
   }
-  devise_scope :user do 
+  scope 'user/' do 
     get 'profile', to: 'users/manages#profile'
   end
   get 'assign_role', to: 'home#assign_role'
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :journeys
   resources :orders, except: :new
   get '/:traveller_id/orders/new', to: 'orders#new', as: "new_order"
-  get 'traveller_list', to: 'manages#traveller_list'
+  get 'traveller_list', to: 'users/manages#traveller_list'
 
 
 end

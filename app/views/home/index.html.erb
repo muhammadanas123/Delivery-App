@@ -4,15 +4,17 @@
     <% if current_user %>
         <% if !current_user.has_any_role? %>
             <h1>neither sender nor traveller</h1>
-            <div class="actions">
-                <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
-                    <%= hidden_field_tag(:role, "traveller") %>
-                    <%= submit_tag('Become Traveller', name: :nil, class: "btn btn-success my-2 my-sm-0") %>
-                <%end%> 
-                <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
-                    <%= hidden_field_tag(:role, "sender") %>
-                    <%= submit_tag('Become Sender', name: :nil, class: "btn btn-success my-2 my-sm-0") %>
-                <%end%>
+            <div class="container">
+                <div class="d-flex p-2 align-items-center">
+                    <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+                        <%= hidden_field_tag(:role, "traveller") %>
+                        <%= submit_tag('Become Traveller', name: :nil, class: "btn btn-outline-dark my-2 my-sm-0") %>
+                    <%end%> 
+                    <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+                        <%= hidden_field_tag(:role, "sender") %>
+                        <%= submit_tag('Become Sender', name: :nil, class: "btn btn-dark my-2 my-sm-0") %>
+                    <%end%>
+                </div>
             </div>
         <%elsif current_user.has_role? :sender %>
             <h1>You'r a sender</h1>

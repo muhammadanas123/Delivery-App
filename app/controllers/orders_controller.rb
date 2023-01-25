@@ -1,52 +1,97 @@
 class OrdersController < ApplicationController
     # before_action :restrict_traveller_to_access_orders
     # before_action :cannot_access_the_other_senders_orders
-    before_action :set_sender, only: [:new, :create, :edit, :update, :index]
-    # before_action :find_and_set_orders, only: [:show, :destroy]
+    before_action :set_user, only: [:new, :create, :edit, :update, :index]
+    before_action :find_and_set_orders, only: [:show, :destroy]
     # load_and_authorize_resource
 
+    def index
+        if current_user.has_role? :sender
+            @orders = @user.sender_orders
+        elsif current_user.has_role? :traveller
+            @orders = @user.traveller_orders
+        end
+        
+        if can? :index, Order
+            render :index
+        else
+            flash[:alert] = "Not authorized to access Order#index"
+            redirect_to root_path
+        end
+    end
 
     def new 
-        @order = @sender.orders.build
+        @order = @user.sender_orders.build
         session[:traveller_id] = params[:traveller_id].to_i
+        if can? :new, Order
+            render :new
+        else
+            flash[:alert] = "Not authorized to access Order#new"
+            redirect_to root_path
+        end
     end
 
     def create
-        @traveller_id = session[:traveller_id]
-        @order = Order.new(order_params)
-        @order.traveller_id = @traveller_id
-        @order.sender_id = params[:sender_id]
-        if @order.save
-            redirect_to sender_orders_path, notice: "successfully created an order"
+        if can? :create, Order
+            @traveller_id = session[:traveller_id]
+            @order = Order.new(order_params)
+            @order.traveller_id = @traveller_id
+            @order.sender_id = current_user.id
+            if @order.save
+                redirect_to orders_path, notice: "successfully created an order"
+            else
+                render "new"
+            end
         else
-            render "new"
+            flash[:alert] = "Not authorized to access Order#create"
+            redirect_to root_path
         end
     end
 
     def edit
-        @order = @sender.orders.find_by(id: params[:id])
-    end
-
-    def update
-        @order = @sender.orders.find_by(id: params[:id])
-        if @order.update(order_params)
-            redirect_to sender_orders_path, notice: "successfully updated!"
+        @order = @user.orders.find_by(id: params[:id])
+        if can? :edit, Order
+            render :edit
         else
-            render "edit"
+            flash[:alert] = "Not authorized to access Order#edit"
+            redirect_to root_path
         end
     end
 
-    def index
-        @orders = @sender.orders
+    def update
+        if can? :update, Order
+            @order = @user.orders.find_by(id: params[:id])
+            if @order.update(order_params)
+                redirect_to orders_path, notice: "successfully updated!"
+            else
+                render "edit"
+            end
+        else
+            flash[:alert] = "Not authorized to access Order#update"
+            redirect_to root_path
+        end
+
     end
 
+
+
     def show
-        render json: @order, include: [:items]
+        if can? :show, Order
+            render json: @order, include: [:items]
+        else
+            flash[:alert] = "Not authorized to access Order#show"
+            redirect_to root_path
+        end
     end
 
     def destroy
-        @order.destroy
-        redirect_to sender_orders_path
+        if can? :destroy, Order
+            @order.destroy
+            redirect_to orders_path
+        else
+            flash[:alert] = "Not authorized to access Order#destroy"
+            redirect_to root_path
+        end
     end
 
     private
@@ -58,23 +103,21 @@ class OrdersController < ApplicationController
         @order = Order.find_by(id: params[:id])
     end
 
-    def set_sender
-        if current_user.has_role? :sender
-            @sender = User.find_by(id: current_user.id)
-        end
+    def set_user
+        @user = User.find_by(id: current_user.id)
     end
 
-    def restrict_traveller_to_access_orders
-        if current_user_credential.user_type == "Traveller"
-            flash["alert"] = "you'r not authorised to access it."
-            redirect_to root_path
-        end
-    end
+    # def restrict_traveller_to_access_orders
+    #     if current_user_credential.user_type == "Traveller"
+    #         flash["alert"] = "you'r not authorised to access it."
+    #         redirect_to root_path
+    #     end
+    # end
 
-    def cannot_access_the_other_senders_orders
-        if current_user_credential.user_id != params[:sender_id].to_i
-            flash["alert"] = "you can only access your own orders"
-            redirect_to root_path
-        end
-    end
+    # def cannot_access_the_other_senders_orders
+    #     if current_user_credential.user_id != params[:sender_id].to_i
+    #         flash["alert"] = "you can only access your own orders"
+    #         redirect_to root_path
+    #     end
+    # end
 end

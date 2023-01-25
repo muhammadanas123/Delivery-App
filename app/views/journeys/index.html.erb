@@ -16,9 +16,9 @@
                     <td><%=journey.from%></td>
                     <td><%=journey.to%></td>
                     <td>
-                        <%= link_to "view", traveller_journey_path(@traveller,journey), class: "btn btn-outline-info btn-sm"%>
-                        <%= link_to "edit", edit_traveller_journey_path(@traveller,journey), class: "btn btn-outline-success btn-sm" %>
-                        <%= link_to "delete", traveller_journey_path(@traveller,journey), method: :delete, class: "btn btn-outline-danger btn-sm" %>
+                        <%= link_to "view", journey_path(journey), class: "btn btn-outline-info btn-sm"%>
+                        <%= link_to "edit", edit_journey_path(journey), class: "btn btn-outline-success btn-sm" %>
+                        <%= link_to "delete", journey_path(journey), method: :delete, class: "btn btn-outline-danger btn-sm" %>
                     </td>
                 </tr>
             <%end%>

@@ -6,14 +6,16 @@ class Ability
   def initialize(user)
     # Define abilities for the user here. For example:
     #
+    # byebug
       return unless user.present?
       if user.has_role? :traveller
-        can [:read, :create, :update, :destroy], :Journey
-        can :read, :Order
-      elsif
-        can [:read, :create, :update, :destroy], :Order, :message => "Unable to read this article."
+        # byebug
+        can [:read, :create, :update, :destroy], Journey
+        can :read, Order
+      elsif user.has_role? :sender
+        can [:read, :create, :update, :destroy], Order
       end
-      cannot :index, :User, user: user
+      cannot :index, User
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
