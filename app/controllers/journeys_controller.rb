@@ -3,58 +3,58 @@ class JourneysController < ApplicationController
     # before_action :traveller_cannot_access_the_other_traveller_info, only: [:edit, :show, :update, :destroy]
     before_action :find_and_set_journey, only: [:show, :edit, :update, :destroy]
     # before_action :restrict_sender_to_access_journey
-    before_action :set_traveller, only: [:new, :create, :index]
+    # before_action :set_traveller, only: [:new, :create, :index]
 
     def index
-        @journeys = @traveller.journeys.completed_journies(current_user.id)
+        @journeys = current_user.completed_journeys
         if can? :index, Journey
             render :index
         else
-            flash[:alert] = "Not authorized to access Journey#index"
+            flash["alert"] = "Not authorized to access Journey#index"
             redirect_to root_path
         end
     end
 
     def new
-        @journey = @traveller.journeys.build
+        @journey = current_user.journeys.build
         if can? :new, Journey
             render :new
         else
-            flash[:alert] = "Not authorized to access Journey#new"
+            flash["alert"] = "Not authorized to access Journey#new"
             redirect_to root_path
         end
     end
 
     def create 
         if can? :create, Journey
-            @journey = @traveller.journeys.create(journey_params)
-            if @journey.valid?
+            @journey = current_user.journeys.build(journey_params)
+            if @journey.save
                 @journey.update(from: params[:journey][:from].downcase, to: params[:journey][:to].downcase)
                 redirect_to journey_path(@journey), notice: "successfully created a journey"
             else
-                render "new", notice: "there is some error while creating"
+                render "new", alert: "there is some error while creating"
             end
         else
-            flash[:alert] = "Not authorized to access Journey#create"
+            flash["alert"] = "Not authorized to access Journey#create"
             redirect_to root_path
         end
 
     end
 
     def show
-        if can? :show, Journey
+        if (@journey.present?) && (can? :show, Journey)
             render :show
         else
-            flash[:alert] = "Not authorized to access Journey#show"
+            flash["alert"] = "Not authorized to access Journey#show"
             redirect_to root_path
         end
     end
 
     def edit
-        if can? :edit, Journey
+        if (@journey.present?) && (can? :edit, Journey)
             render :edit
         else
-            flash[:alert] = "Not authorized to access Journey#edit"
+            flash["alert"] = "Not authorized to access Journey#edit"
             redirect_to root_path
         end
     end
@@ -83,7 +83,7 @@ class JourneysController < ApplicationController
                 redirect_to journey_path(@journey), notice: "successfully updated your journey information!"
             end
         else
-            flash[:alert] = "Not authorized to access Journey#update"
+            flash["alert"] = "Not authorized to access Journey#update"
             redirect_to root_path
         end
     end
@@ -91,9 +91,9 @@ class JourneysController < ApplicationController
     def destroy
         if can? :update, Journey
             @journey.destroy
-            redirect_to traveller_journeys_path(@traveller)
+            redirect_to journeys_path
         else
-            flash[:alert] = "Not authorized to access Journey#destroy"
+            flash["alert"] = "Not authorized to access Journey#destroy"
             redirect_to root_path
         end
     end
@@ -101,8 +101,7 @@ class JourneysController < ApplicationController
     private
 
     def find_and_set_journey
-        @traveller = User.find_by(id: current_user.id)
-        @journey = @traveller.journeys.find_by(id: params[:id])
+        @journey = current_user.journeys.find_by(id: params[:id])
     end
 
     def journey_params
@@ -123,7 +122,7 @@ class JourneysController < ApplicationController
     #     end
     # end
 
-    def set_traveller
-        @traveller = User.find_by(id: current_user.id)
-    end
+    # def set_traveller
+    #     @traveller = User.find_by(id: current_user.id)
+    # end
 end

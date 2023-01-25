@@ -15,7 +15,7 @@ class Ability
       elsif user.has_role? :sender
         can [:read, :create, :update, :destroy], Order
       end
-      cannot :index, User
+      # cannot :index, User
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.

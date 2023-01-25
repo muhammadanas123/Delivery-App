@@ -10,16 +10,16 @@ class Journey < ApplicationRecord
     where(from: from.downcase, to: to.downcase, status: "not_completed").where("capacity > ?",capacity.to_i)
   end
 
-  def self.completed_journies(traveller_id)
-    where(user_id: traveller_id, status: "completed")
-  end
+  # def self.completed_journies(traveller_id)
+  #   where(user_id: traveller_id, status: "completed")
+  # end
 
-  def self.not_completed_journey(traveller_id)
-    where(user_id: traveller_id, status: "not_completed")
-  end
+  # def self.not_completed_journey(traveller_id)
+  #   where(user_id: traveller_id, status: "not_completed")
+  # end
 
-  def self.not_completed_journey_id(traveller_id)
-    journey = where(user_id: traveller_id, status: "not_completed")
-    journey[0].id
-  end
+  # def self.not_completed_journey_id(traveller_id)
+  #   journey = where(user_id: traveller_id, status: "not_completed")
+  #   journey[0].id
+  # end
 end

@@ -19,10 +19,10 @@
                             </a>
 
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <% if Journey.not_completed_journey(current_user.id).any? %>
-                                    <%= link_to "Current Journey", journey_path(Journey.not_completed_journey_id(current_user.id)), class: "dropdown-item" %>
+                                <% if current_user.not_completed_journey.present? %>
+                                    <%= link_to "Current Journey", journey_path(current_user.not_completed_journey.id), class: "dropdown-item" %>
                                 <% end %>
-                                <% if Journey.completed_journies(current_user.id).any? %>
+                                <% if current_user.completed_journeys.present? %>
                                     <%= link_to "History", journeys_path, class: "dropdown-item" %>
                                 <% end %>
                             </div> 

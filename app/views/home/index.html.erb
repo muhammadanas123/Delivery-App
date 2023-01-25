@@ -6,11 +6,11 @@
             <h1>neither sender nor traveller</h1>
             <div class="container">
                 <div class="d-flex p-2 align-items-center">
-                    <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+                    <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do %>
                         <%= hidden_field_tag(:role, "traveller") %>
                         <%= submit_tag('Become Traveller', name: :nil, class: "btn btn-outline-dark my-2 my-sm-0") %>
                     <%end%> 
-                    <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+                    <%= form_tag(assign_role_path, method: :get, class: "form-inline my-2 my-lg-0")  do %>
                         <%= hidden_field_tag(:role, "sender") %>
                         <%= submit_tag('Become Sender', name: :nil, class: "btn btn-dark my-2 my-sm-0") %>
                     <%end%>
@@ -20,7 +20,7 @@
             <h1>You'r a sender</h1>
         <% else %>
             <h1>Traveller</h1>
-            <% if !User.find_by(id: current_user.id).journeys.not_completed.any? %>
+            <% if !current_user.not_completed_journey.present? %>
                 <%= link_to "New Journey", new_journey_path, class: "btn btn-outline-dark" %>
             <% end %> 
         <%end%>

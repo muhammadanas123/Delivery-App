@@ -11,6 +11,14 @@ class User < ApplicationRecord
   has_many :sender_orders, class_name: 'Order', foreign_key: :sender_id, dependent: :destroy
   has_many :traveller_orders, class_name: 'Order', foreign_key: :traveller_id, dependent: :destroy 
 
+  def not_completed_journey
+    self.journeys.find_by(status: "not_completed")
+  end
+
+  def completed_journeys
+    self.journeys.where(status: "completed")
+  end
+
 
   # validates :firstname, :lastname, length: { minimum: 3, maximum: 15 }, presence: true
   # validates :phone_no, :landline, length: { minimum:11, maximum:11 }

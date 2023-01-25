@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Travellers</h1>
     
-     <%= form_tag(traveller_list_path, method: :get, class: "form-inline my-2 my-lg-0")  do |f| %>
+    <%= form_tag(traveller_list_path, method: :get, class: "form-inline my-2 my-lg-0")  do %>
         <%= text_field_tag :from, params[:from], placeholder: 'From', class: "form-control mr-sm-2" %> 
         <%= text_field_tag :to, params[:to], placeholder: 'To', class: "form-control mr-sm-2" %> 
         <%= text_field_tag :capacity, params[:capacity], placeholder: 'Capacity', class: "form-control mr-sm-2" %> 
