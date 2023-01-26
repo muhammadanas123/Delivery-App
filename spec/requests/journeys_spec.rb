@@ -2,20 +2,18 @@ require 'rails_helper'
 
 RSpec.describe "Journeys", type: :request do
   describe "Create Journey" do
-    let(:user_credential) { create :user_credential }
-    let(:traveller) { create :traveller }  
+    let(:user) { create :user }
     before(:each) do
-      sign_in(user_credential)
+      sign_in(user)
       get root_path
-      user_credential.user = traveller
-      user_credential.save
+      user.add_role :traveller
     end
 
     it "should render the new journey form and save it in the db" do
-      get new_traveller_journey_path(traveller)
+      get new_journey_path
       expect(response).to render_template("journeys/new")
       expect(response).to have_http_status(200)
-      post traveller_journeys_path(traveller), params: {
+      post journeys_path, params: {
         journey: {
           from: "lahore", 
           to: "islamabad", 
@@ -26,27 +24,26 @@ RSpec.describe "Journeys", type: :request do
         }
       }
       expect(Journey.count).to eq(1)
-      expect(response).to redirect_to(traveller_journeys_path(traveller))
-      follow_redirect!
+      get journeys_path
+      expect(response).to render_template("journeys/index")
+      expect(response).to have_http_status(200)      
     end
   end
 
   describe "Update Journey" do
-    let(:user_credential) { create :user_credential }
-    let(:traveller) { create :traveller } 
-    let(:journey) { create :journey, traveller_id: traveller.id } 
+    let(:user) { create :user }
+    let(:journey) { create :journey, user_id: user.id } 
     before(:each) do
-      sign_in(user_credential)
+      sign_in(user)
       get root_path
-      user_credential.user = traveller
-      user_credential.save
+      user.add_role :traveller
     end
 
     it "should render the edit journey form and update it in the db when 'from' and 'to' provided" do
-      get edit_traveller_journey_path(traveller,journey)
+      get edit_journey_path(journey)
       expect(response).to render_template("journeys/edit")
       expect(response).to have_http_status(200)
-      patch traveller_journey_path(traveller,journey), params: {
+      patch journey_path(journey), params: {
         journey: {
           from: "lahore-edited", 
           to: "islamabad-edited", 
@@ -63,15 +60,16 @@ RSpec.describe "Journeys", type: :request do
       expect(assigns[:journey].arrival_date).to eq("22-12-2022") 
       expect(assigns[:journey].capacity).to eq(22) 
       expect(assigns[:journey].rate).to eq(222)  
-      expect(response).to redirect_to(traveller_journey_path(traveller,journey))
-      follow_redirect!
+      get journey_path(journey)
+      expect(response).to render_template("journeys/show")
+      expect(response).to have_http_status(200)  
     end
 
     it "should render the edit journey form and update it in the db when 'from' not provided" do
-      get edit_traveller_journey_path(traveller,journey)
+      get edit_journey_path(journey)
       expect(response).to render_template("journeys/edit")
       expect(response).to have_http_status(200)
-      patch traveller_journey_path(traveller,journey), params: {
+      patch journey_path(journey), params: {
         journey: {
           to: "islamabad-edited",
           departure_date: "21-12-2022",
@@ -87,15 +85,16 @@ RSpec.describe "Journeys", type: :request do
       expect(assigns[:journey].arrival_date).to eq("22-12-2022") 
       expect(assigns[:journey].capacity).to eq(22) 
       expect(assigns[:journey].rate).to eq(222)  
-      expect(response).to redirect_to(traveller_journey_path(traveller,journey))
-      follow_redirect!
+      get journey_path(journey)
+      expect(response).to render_template("journeys/show")
+      expect(response).to have_http_status(200)  
     end
 
     it "should render the edit journey form and update it in the db when 'to' not provided" do
-      get edit_traveller_journey_path(traveller,journey)
+      get edit_journey_path(journey)
       expect(response).to render_template("journeys/edit")
       expect(response).to have_http_status(200)
-      patch traveller_journey_path(traveller,journey), params: {
+      patch journey_path(journey), params: {
         journey: {
           from: "lahore-edited",
           departure_date: "21-12-2022",
@@ -111,15 +110,16 @@ RSpec.describe "Journeys", type: :request do
       expect(assigns[:journey].arrival_date).to eq("22-12-2022") 
       expect(assigns[:journey].capacity).to eq(22) 
       expect(assigns[:journey].rate).to eq(222)  
-      expect(response).to redirect_to(traveller_journey_path(traveller,journey))
-      follow_redirect!
+      get journey_path(journey)
+      expect(response).to render_template("journeys/show")
+      expect(response).to have_http_status(200)  
     end
 
     it "should render the edit journey form and update it in the db when not 'from' nor 'to' provided" do
-      get edit_traveller_journey_path(traveller,journey)
+      get edit_journey_path(journey)
       expect(response).to render_template("journeys/edit")
       expect(response).to have_http_status(200)
-      patch traveller_journey_path(traveller,journey), params: {
+      patch journey_path(journey), params: {
         journey: {
           departure_date: "21-12-2022",
           arrival_date: "22-12-2022",
@@ -133,28 +133,28 @@ RSpec.describe "Journeys", type: :request do
       expect(assigns[:journey].arrival_date).to eq("22-12-2022") 
       expect(assigns[:journey].capacity).to eq(22) 
       expect(assigns[:journey].rate).to eq(222) 
-      expect(response).to redirect_to(traveller_journey_path(traveller,journey))
-      follow_redirect!
+      get journey_path(journey)
+      expect(response).to render_template("journeys/show")
+      expect(response).to have_http_status(200)  
     end
 
   end
 
   describe "when destroying the journey" do
-    let!(:user_credential) { create :user_credential }
-    let!(:traveller) { create :traveller } 
-    let!(:journey) { create :journey, traveller_id: traveller.id } 
+    let!(:user) { create :user }
+    let!(:journey) { create :journey, user_id: user.id } 
     before(:each) do
-      sign_in(user_credential)
+      sign_in(user)
       get root_path
-      user_credential.user = traveller
-      user_credential.save
+      user.add_role :traveller
     end
 
     it "should destroy the journey" do
-      delete traveller_journey_path(traveller,journey)
+      delete journey_path(journey)
       expect(Journey.count).to eq(0)
-      expect(response).to redirect_to(traveller_journeys_path(traveller))
-      follow_redirect!  
+      get journeys_path
+      expect(response).to render_template("journeys/index")
+      expect(response).to have_http_status(200)     
     end
   end
 end

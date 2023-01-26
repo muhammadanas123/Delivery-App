@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Journey, type: :model do
   context "when creating a journey" do
-    let(:traveller) { create :traveller } 
-    let(:journey) { create :journey, traveller_id: traveller.id } 
+    let(:user) { create :user } 
+    let(:journey) { create :journey, user_id: user.id } 
     it "should be valid journey with all attributes" do
       expect(journey.valid?).to eq(true)
     end
@@ -41,19 +41,25 @@ RSpec.describe Journey, type: :model do
     end
 
     describe "Associations" do
-      it { should belong_to(:traveller) }
+      it { should belong_to(:user) }
     end
 
   end
 
   describe ".search" do
-    let(:traveller) { create :traveller } 
-    let!(:journey) { create :journey, traveller_id: traveller.id } 
+    let(:user) { create :user } 
+    let!(:journey) { create :journey, user_id: user.id } 
     it "should search on the basis of (from, to and capacity)" do      
       from = "lahore"
       to = "islamabad"
       capacity = 19
-      expect(Journey.search(from,to,capacity).empty?).to eq(false)
+      journeys = Journey.search(from,to,capacity)
+      expect(journeys.present?).to eq(true) 
+      journeys.each do |journey|
+        expect(journey.from).to eq("lahore") 
+        expect(journey.to).to eq("islamabad")
+        expect(journey.capacity).to be > 19
+      end
     end
   end
 end

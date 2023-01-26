@@ -6,11 +6,12 @@ class OrdersController < ApplicationController
     # load_and_authorize_resource
 
     def index
-        if current_user.has_role? :sender
-            @orders = current_user.sender_orders
-        elsif current_user.has_role? :traveller
-            @orders = current_user.traveller_orders
-        end
+        # if current_user.has_role? :sender
+        #     @orders = current_user.sender_orders
+        # elsif current_user.has_role? :traveller
+        #     @orders = current_user.traveller_orders
+        # end
+        @orders = (current_user.has_role? :sender) ? @orders = current_user.sender_orders : @orders = current_user.traveller_orders
         
         if can? :index, Order
             render :index
@@ -96,7 +97,7 @@ class OrdersController < ApplicationController
 
     private
     def order_params
-        params.require(:order).permit(:receiver_name, :receiver_phone, :receiver_address, items_attributes: [:id, :itemname, :_destroy])
+        params.require(:order).permit(:receiver_name, :receiver_phone, :receiver_address, :traveller_id, items_attributes: [:id, :itemname, :_destroy])
     end
 
     def find_and_set_orders

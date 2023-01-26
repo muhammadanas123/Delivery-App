@@ -6,6 +6,5 @@ FactoryBot.define do
     arrival_date { "28-12-2022" }
     capacity { 20 }
     rate { 333 }
-    traveller_id { 3 }
   end
 end

@@ -45,8 +45,7 @@
                     <%= f.text_field :rate, autocomplete: 'rate', class: 'form-control' %>
                 </div>
             </div>
-
-            <% if !@journey.new_record? && @journey.not_completed? %>
+            <% if @journey.not_completed? %>
                 <div class="actions">
                     <%= f.radio_button :status, "completed" %>
                     <%= f.label :status, "completed" %><br>

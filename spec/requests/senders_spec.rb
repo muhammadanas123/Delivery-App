@@ -113,9 +113,11 @@ RSpec.describe "Senders", type: :request do
         }
       }
       journeys = Journey.search("lahore", "islamabad", 19)
-      expect(journeys[0].from).to eq("lahore") 
-      expect(journeys[0].to).to eq("islamabad")
-      expect(journeys[0].capacity).to be > 19
+      journeys.each do |journey|
+        expect(journey.from).to eq("lahore") 
+        expect(journey.to).to eq("islamabad")
+        expect(journey.capacity).to be > 19
+      end
     end
 
     it "should destroy the current sender and it's credentials" do

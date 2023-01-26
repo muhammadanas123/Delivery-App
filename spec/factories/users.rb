@@ -1,5 +1,7 @@
 FactoryBot.define do
-  factory :traveller do
+  factory :user do
+    email { "umer1@example.com" }
+    password { "password" }
     firstname { "anas" }
     lastname { "farooqi" }
     phone_no { 13332221111 }

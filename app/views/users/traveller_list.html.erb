@@ -29,7 +29,10 @@
                             <td><%=journey.user.firstname%></td>
                             <td><%=journey.capacity%></td>
                             <td>
-                                <%= link_to "place an order", new_order_path(journey.user_id), class: "btn btn-outline-success my-2 my-sm-0 left-margin" %>
+                                <%= form_tag(new_order_path, method: :get, class: "form-inline my-2 my-lg-0")  do %>
+                                    <%= hidden_field_tag :traveller_id, journey.user_id %>
+                                    <%= submit_tag('place an order', name: :nill, class: "btn btn-success my-2 my-sm-0") %>
+                                <%end%>
                             </td>
                         </tr>                        
                     <%end%>

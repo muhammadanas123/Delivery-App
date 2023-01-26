@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Order, type: :model do
   context "when creating an order" do
-    let(:traveller) { create :traveller }
-    let(:sender) { create :sender }
+    let(:traveller) { create :user }
+    let(:sender) { create :user, email: "bilal@example.com" }
     let(:order) { create :order, sender_id: sender.id, traveller_id: traveller.id } 
 
     it "should be valid with all attributes" do
@@ -31,14 +31,12 @@ RSpec.describe Order, type: :model do
   end
 
   context "when updating an order" do
-    let(:traveller) { create :traveller }
-    let(:sender) { create :sender }
+    let(:traveller) { create :user }
+    let(:sender) { create :user, email: "bilal@example.com" }
     let(:order) { create :order, sender_id: sender.id, traveller_id: traveller.id } 
 
     it "should update the order" do
-      params = { traveller_id: traveller.id, 
-                  sender_id: sender.id, 
-                  receiver_name: "ali-updated", 
+      params = {  receiver_name: "ali-updated", 
                   receiver_phone: 55555555555, 
                   receiver_address: "khayaban e amin, lahore-updated" }
       expect(order.update!(params)).to eq(true)

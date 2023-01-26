@@ -18,7 +18,7 @@
             </div>
         <%elsif current_user.has_role? :sender %>
             <h1>You'r a sender</h1>
-        <% else %>
+        <% elsif current_user.has_role? :traveller %>
             <h1>Traveller</h1>
             <% if !current_user.not_completed_journey.present? %>
                 <%= link_to "New Journey", new_journey_path, class: "btn btn-outline-dark" %>
