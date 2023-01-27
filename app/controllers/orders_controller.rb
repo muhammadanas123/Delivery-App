@@ -78,7 +78,8 @@ class OrdersController < ApplicationController
 
     def show
         if (@order.present?) && (can? :show, Order)
-            render json: @order, include: [:items]
+            # render json: @order, include: [:items]
+            render :show
         else
             flash["alert"] = "Not authorized to access Order#show"
             redirect_to root_path
