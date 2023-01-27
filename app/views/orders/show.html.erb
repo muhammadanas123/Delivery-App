@@ -1,0 +1,8 @@
+<div class="container">
+        <p class="text-monospace">receiver's name : <%= @order.receiver_name %></p>
+        <p class="text-monospace">receiver's phone : <%= @order.receiver_phone %></p>
+        <p class="text-monospace">receiver's address : <%= @order.receiver_address %></p>
+        <% @order.items.each do |item| %>
+            <p class="text-monospace">item name : <%= item.itemname %></p>
+        <%end%>
+</div>

@@ -3,15 +3,18 @@ require 'rails_helper'
 RSpec.describe "Orders", type: :request do
   describe "Create Sender" do
     let(:traveller) { create :user }    
-    let(:sender) { create :user, email: "bilal@example.com" }    
+    let(:sender) { create :user, email: "bilal23@example.com" }    
     before(:each) do
       sign_in(sender)
       get root_path
       sender.add_role :sender
+      traveller.add_role :traveller
     end
 
     it "should render the new order form and save it in the db" do
-      get new_order_path
+      get new_order_path, params: {
+        traveller_id: traveller.id
+      }
       expect(response).to render_template("orders/new")
       expect(response).to have_http_status(200)
       post orders_path, params: {
@@ -95,12 +98,12 @@ RSpec.describe "Orders", type: :request do
     end
   end
 
-  describe "when destroy an sender" do
+  describe "when destroy an order or view an order" do
 
     let(:traveller) { create :user }    
     let(:sender) { create :user, email: "bilal@example.com" }  
     let(:order) { create :order, traveller_id: traveller.id, sender_id: sender.id } 
-    let(:item) { create :item, order_id: order.id } 
+    let!(:item) { create :item, order_id: order.id } 
     before(:each) do
       sign_in(sender)
       get root_path
@@ -110,9 +113,17 @@ RSpec.describe "Orders", type: :request do
     it "should destroy the current sender and it's credentials" do
       delete order_path(order)
       expect(Order.count).to eq(0)
-      get sender_orders_path
+      get orders_path
       expect(response).to render_template("orders/index")
       expect(response).to have_http_status(200)
     end
+
+    it "should display order in json" do
+      get order_path(order)
+      expect(response).to render_template("orders/show")
+      expect(response).to have_http_status(200)
+    end
+    
   end
+  
 end
