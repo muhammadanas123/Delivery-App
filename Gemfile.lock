@@ -131,12 +131,12 @@ GEM
       timeout
     net-smtp (0.3.3)
       net-protocol
-    nio4r (2.5.8)
+    nio4r (2.5.9)
     nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     public_suffix (5.0.1)
-    puma (5.6.5)
+    puma (6.3.1)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.4)
@@ -282,7 +282,7 @@ DEPENDENCIES
   formtastic
   jbuilder (~> 2.7)
   listen (~> 3.3)
-  puma (~> 5.0)
+  puma (~> 6.3)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7)
   rails-controller-testing
@@ -292,7 +292,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   spring
-  sqlite3 (~> 1.4)
+  sqlite3 (~> 1.5)
   stimulus-rails
   turbolinks (~> 5)
   tzinfo-data
