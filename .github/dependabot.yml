@@ -13,5 +13,3 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "[GEM]"
-    allow:
-      - type: "security"
