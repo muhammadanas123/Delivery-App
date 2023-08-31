@@ -13,8 +13,6 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "[GEM]"
-    update-types:
-    - "minor"
-    # ignore:
-    #   - dependency-name: "*"
-    #     update-types: ["version-update:semver-major"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
