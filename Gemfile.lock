@@ -184,7 +184,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rexml (3.2.5)
+    rexml (3.2.6)
     rspec-core (3.12.0)
       rspec-support (~> 3.12.0)
     rspec-expectations (3.12.1)
@@ -213,7 +213,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (4.7.1)
+    selenium-webdriver (4.12.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
@@ -292,7 +292,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   spring
-  sqlite3 (~> 1.4)
+  sqlite3 (~> 1.5)
   stimulus-rails
   turbolinks (~> 5)
   tzinfo-data
