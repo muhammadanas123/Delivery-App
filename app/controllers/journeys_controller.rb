@@ -8,10 +8,10 @@ class JourneysController < ApplicationController
         @journey = @traveller.journeys.build
     end
 
-    def create 
+    def create
         @journey = @traveller.journeys.create(journey_params)
         @journey.update(from: params[:journey][:from].downcase, to: params[:journey][:to].downcase)
-        redirect_to traveller_journeys_path(@traveller), notice: "successfully created a journey"
+        redirect_to traveller_journeys_path(@traveller), notice: "successfully created a journeyyy"
     end
 
     def show; end
